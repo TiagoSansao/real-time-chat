@@ -1,0 +1,15 @@
+{
+  "name": "real-time-chat",
+  "version": "1.0.0",
+  "description": "Just a real-time chat",
+  "main": "script.js",
+  "scripts": {
+    "start": "node server.js",
+    "devStart": "nodemon server.js"
+  },
+  "author": "Tiago Sansão",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^2.3.0"
+  }
+}

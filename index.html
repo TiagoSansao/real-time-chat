@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat online</title>
+    <link rel="stylesheet" type="text/css" href="index.css"/>
+    <script defer src="http://localhost:5501/socket.io/socket.io.js"></script>
+    <script defer src="script.js"></script> 
+</head>
+<body>
+    <div id="chat-container">
+        <div id="get-name">
+            <form id="form-name" autocomplete="off">
+                <h2><label for="name-input">Digite seu nick para entrar</label></h2> <br>
+                <input type="text" id="name-input" maxlength="15" placeholder="Apelido"/> 
+                <span id="name-error"></span>
+                <input type="submit" id="name-submit" value="Entrar no chat"/>
+            </form>
+        </div>
+        <div id="message-container"></div>
+        <form id="send-form" autocomplete="off">
+            <span id="popup" class="popup" onclick="popupOn()"></span>
+            <input type="text" id="send-message" maxlength="50" placeholder="Digite aqui sua mensagem, comporte-se!"/>
+            <input type="submit" value="Enviar" id="message-submit"/>
+        </form>
+        <span id="typing"></span>
+    </div>
+</body>
+</html>
