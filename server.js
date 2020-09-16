@@ -1,27 +1,61 @@
-const io = require('socket.io')(5501)
+// Imports
 
-const users = {};
+const express = require('express');
+const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+const path = require('path');
+const port = 3000;
+
+// Routes
+
+app.use(express.static(path.join(__dirname, "public")));
+app.set('views', path.join(__dirname, "public"));
+app.engine('html', require('ejs').renderFile);
+app.set('view-engine', 'html');
+
+app.get('/', (res, req) => {
+    res.render('index.html');
+})
+
+
+// Connection with the client
+
+const users = [];
 
 io.on("connection", socket =>  {
-    console.log('A user connected!')
+
     socket.on('verification', (name) => {
-        if (name.length == 0) {
+
+        let nameToCheck = name.replace(/\s+/g, "").toLowerCase()
+
+        if (nameToCheck.length < 3) {
             socket.emit('verification', 0)
             return
         }
-        let nameToCheck = name.replace(/\s+/g, "").toLowerCase()
+
         for(user in users) {
             if (users[user].toLowerCase() == nameToCheck) {
                 socket.emit('verification', 1)
                 return
             }
         }
+
         socket.emit('verification', 3);
+
     })
+    
     socket.on('new-user', (name) => {
-        users[socket.id] = name
-        socket.broadcast.emit('new-user-message', name)
+        users[socket.id] = name;
+        socket.broadcast.emit('new-user-message', name);
+        console.log(`${name} joined the chat!`);
     })
+
+    socket.on('disconnect', () => {
+        socket.broadcast.emit('disconnect-message', users[socket.id]);
+        delete users[socket.id];
+    })
+
     socket.on('send-chat-message', message =>  {
         if (users[socket.id] == null) {
             socket.emit('reload')
@@ -29,10 +63,13 @@ io.on("connection", socket =>  {
         }
         socket.broadcast.emit('chat-message', {message: message, name: users[socket.id]})
     })
-    socket.on('disconnect', () => {
-        delete users[socket.id];
-    })
+
     socket.on('user-typing', user => {
         socket.broadcast.emit('user-typing', user)
     })
+
 })
+
+// Turning on the server 
+
+server.listen(port, () => {console.log(`Server running on port: ${port}`)})

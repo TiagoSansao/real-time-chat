@@ -104,14 +104,24 @@ div#message-container {
     justify-content: flex-end;
     height: 85%;
     padding: 10px;
+    position: relative;
     overflow: hidden;
 }
-div#message-container > * {
+div#message-container .message {
     flex-wrap: wrap;
     word-break: break-all;
+    margin: 3px 0px 3px 0px;
+    padding: 5px 10px 5px 10px;
+    background-color: rgb(53, 45, 45);
+    border-radius: 15px;
+    width: max-content;
+    max-width: 96%;
+}
+div#message-container .message-owner.message {
+    background-color: #1a6439;
 }
 
-/* Formulário do container */
+/* Formulário do container */  
 
 form#send-form {
     order: 2;
