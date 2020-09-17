@@ -1,6 +1,6 @@
 {
   "name": "real-time-chat",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Just a real-time chat",
   "main": "script.js",
   "scripts": {

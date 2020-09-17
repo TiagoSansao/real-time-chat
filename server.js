@@ -21,7 +21,7 @@ app.get('/', (res, req) => {
 
 // Connection with the client
 
-const users = [];
+var users = [];
 
 io.on("connection", socket =>  {
 
@@ -52,7 +52,9 @@ io.on("connection", socket =>  {
     })
 
     socket.on('disconnect', () => {
-        socket.broadcast.emit('disconnect-message', users[socket.id]);
+        if (users[socket.id] != undefined || users[socket.id] != null) {
+            socket.broadcast.emit('disconnect-message', users[socket.id]);
+        }
         delete users[socket.id];
     })
 
