@@ -3,7 +3,7 @@
 
 > **Preview**
 
-![](/assets/PreviewChatV2.png)
+![](/public/assets/PreviewChatV2.png)
 
 > **Features**
 * Real-time communication
