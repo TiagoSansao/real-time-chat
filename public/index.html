@@ -9,22 +9,29 @@
     <script defer src="script.js"></script> 
 </head>
 <body>
-    <div id="chat-container">
-        <div id="get-name">
-            <form id="form-name" autocomplete="off">
-                <h2><label for="name-input">Digite seu nick para entrar</label></h2> <br>
-                <input type="text" id="name-input" maxlength="15" placeholder="Apelido"/> 
-                <span id="name-error"></span>
-                <input type="submit" id="name-submit" value="Entrar no chat"/>
+    <div id="interface">
+        <div id="chat-container">
+            <div id="get-name">
+                <form id="form-name" autocomplete="off">
+                    <h2><label for="name-input">Digite seu nick para entrar</label></h2> <br>
+                    <input type="text" id="name-input" maxlength="13" placeholder="Apelido"/> 
+                    <span id="name-error"></span>
+                    <input type="submit" id="name-submit" value="Entrar no chat"/>
+                </form>
+            </div>
+            <div id="message-container"></div>
+            <form id="send-form" autocomplete="off">
+                <span id="popup" class="popup"></span>
+                <input type="text" id="send-message" maxlength="50" placeholder="Digite aqui sua mensagem, comporte-se!"/>
+                <input type="submit" value="Enviar" id="message-submit"/>
             </form>
+            <span id="typing"></span>
         </div>
-        <div id="message-container"></div>
-        <form id="send-form" autocomplete="off">
-            <span id="popup" class="popup" onclick="popupOn()"></span>
-            <input type="text" id="send-message" maxlength="50" placeholder="Digite aqui sua mensagem, comporte-se!"/>
-            <input type="submit" value="Enviar" id="message-submit"/>
-        </form>
-        <span id="typing"></span>
+        <aside id="online-people">
+            <h4>Usuários conectados</h4>
+            <ul id="connected-list"></ul>
+        </aside>
+        <aside id="rooms"></aside>
     </div>
 </body>
 </html>

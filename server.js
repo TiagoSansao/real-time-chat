@@ -14,18 +14,20 @@ app.set('views', path.join(__dirname, "public"));
 app.engine('html', require('ejs').renderFile);
 app.set('view-engine', 'html');
 
-app.get('/', (res, req) => {
+app.get('*', (req, res) => {
     res.render('index.html');
 })
 
 
 // Connection with the client
 
-var users = [];
+const users = [];
+var names = []
 
 io.on("connection", socket =>  {
 
     socket.on('verification', (name) => {
+        
 
         let nameToCheck = name.replace(/\s+/g, "").toLowerCase()
 
@@ -44,10 +46,12 @@ io.on("connection", socket =>  {
         socket.emit('verification', 3);
 
     })
-    
+
     socket.on('new-user', (name) => {
         users[socket.id] = name;
-        socket.broadcast.emit('new-user-message', name);
+        socket.broadcast.emit('new-user-message', name)
+        socket.broadcast.emit('users-list', getConnectedPeople());
+        socket.emit('users-list', names);
         console.log(`${name} joined the chat!`);
     })
 
@@ -55,7 +59,9 @@ io.on("connection", socket =>  {
         if (users[socket.id] != undefined || users[socket.id] != null) {
             socket.broadcast.emit('disconnect-message', users[socket.id]);
         }
+        console.log(`${users[socket.id]} left the chat!`);
         delete users[socket.id];
+        socket.broadcast.emit('users-list', getConnectedPeople());
     })
 
     socket.on('send-chat-message', message =>  {
@@ -71,6 +77,16 @@ io.on("connection", socket =>  {
     })
 
 })
+
+// Functions
+
+function getConnectedPeople() {
+    names = [];
+    for (user in users) {
+        names.push(users[user]);
+    }
+    return names;
+}
 
 // Turning on the server 
 
