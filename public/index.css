@@ -10,6 +10,7 @@ html {
 }
 body {
     background-color: #000000bd;
+    display: grid;
 }
 
 /* Interface */
@@ -212,8 +213,9 @@ aside#online-people ul#connected-list li {
     font-size: 15px;
 }
 
-/* Aside com as salas */
-aside#rooms {
+/* Aside com lugar para um ad */
+
+aside#advertisement {
     height: 600px;
     order: 0;
     width: 200px;
