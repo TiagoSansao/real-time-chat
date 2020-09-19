@@ -37,7 +37,7 @@ function popupOn(msg) {
 }
 
 function antFlood() {
-    counst += 1
+    count += 1
     if (count > 0) {
         setTimeout(() => {count -= 1}, 5000);
     }
